@@ -18,9 +18,9 @@ Consider using zxcvbn as an algorithmic alternative to password composition poli
 For further detail and motivation, please refer to the USENIX Security '16 [paper and presentation](https://www.usenix.org/conference/usenixsecurity16/technical-sessions/presentation/wheeler).
 
 # Persian Version
- At fandogh, we have developed an special build of this great library which some changes:
+ We have developed an special build of this great library with some changes:
   - Translation of feedback and messages to persian
-  - [More coming soon]
+  - [more coming soon]
   
 # Usage
 
