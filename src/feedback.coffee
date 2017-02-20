@@ -4,8 +4,8 @@ feedback =
   default_feedback:
     warning: ''
     suggestions: [
-      "Use a few words, avoid common phrases"
-      "No need for symbols, digits, or uppercase letters"
+      "از ترکیب چند کلمه غیر مرتبط استفاده کنید"
+      "اجباری به استفاده از حروف، اعداد و یا سمبل ها نیست"
     ]
 
   get_feedback: (score, sequence) ->
@@ -22,7 +22,7 @@ feedback =
     for match in sequence[1..]
       longest_match = match if match.token.length > longest_match.token.length
     feedback = @get_match_feedback(longest_match, sequence.length == 1)
-    extra_feedback = 'Add another word or two. Uncommon words are better.'
+    extra_feedback = 'یک یا چند کلمه دیگر اضافه کنید. کلمات غیر متداول بهترند.'
     if feedback?
       feedback.suggestions.unshift extra_feedback
       feedback.warning = '' unless feedback.warning?
@@ -40,77 +40,77 @@ feedback =
       when 'spatial'
         layout = match.graph.toUpperCase()
         warning = if match.turns == 1
-          'Straight rows of keys are easy to guess'
+          'توالی مرتب حروف به راحتی قابل حدس زدن هستند'
         else
-          'Short keyboard patterns are easy to guess'
+          'الگوهای کوتاه کیبوردی به راحتی قابل حدس زدن هستند'
         warning: warning
         suggestions: [
-          'Use a longer keyboard pattern with more turns'
+          'از یک الگوی طولانی تر استفاده کنید'
         ]
 
       when 'repeat'
         warning = if match.base_token.length == 1
-          'Repeats like "aaa" are easy to guess'
+          'تکرار هایی مثل aaa به راحتی حدس زده می شوند'
         else
-          'Repeats like "abcabcabc" are only slightly harder to guess than "abc"'
+          'ترکیب هایی مثل abcabc فقط تا حدودی از abc سخت تر هستند'
         warning: warning
         suggestions: [
-          'Avoid repeated words and characters'
+          'از تکرار کلمات و کاراکتر ها اجتناب کنید'
         ]
 
       when 'sequence'
-        warning: "Sequences like abc or 6543 are easy to guess"
+        warning: "توالی های مثل 6543 به راحتی قابل حدس زدن هستند"
         suggestions: [
-          'Avoid sequences'
+          'از توالی ها اجتناب کنید'
         ]
 
       when 'regex'
         if match.regex_name == 'recent_year'
-          warning: "Recent years are easy to guess"
+          warning: "شماره سال به راحتی قابل حدس زدن هست"
           suggestions: [
-            'Avoid recent years'
-            'Avoid years that are associated with you'
+            'از شماره سال اجتناب کنید'
+            'از استفاده شماره سال های مرتبط با خودتون اجتناب کنید'
           ]
 
       when 'date'
-        warning: "Dates are often easy to guess"
+        warning: "تاریخ ها معمولا به راحتی حدس زده می شوند."
         suggestions: [
-          'Avoid dates and years that are associated with you'
+          'از استفاده از تاریخ و سال مرتبط با خودتون اجتناب کتید'
         ]
 
   get_dictionary_match_feedback: (match, is_sole_match) ->
     warning = if match.dictionary_name == 'passwords'
       if is_sole_match and not match.l33t and not match.reversed
         if match.rank <= 10
-          'This is a top-10 common password'
+          'این یکی از 10 پسور ناامن شناخته شده است!'
         else if match.rank <= 100
-          'This is a top-100 common password'
+          'این یکی از 100 پسور ناامن شناخته شده است!'
         else
-          'This is a very common password'
+          'این یکی از متداول ترین پسورد ها هست'
       else if match.guesses_log10 <= 4
-        'This is similar to a commonly used password'
+        'این رمز عبور مشابه یک رمز عبور متداول هست'
     else if match.dictionary_name == 'english_wikipedia'
       if is_sole_match
-        'A word by itself is easy to guess'
+        'یک کلمه به تنهایی قابل حدس زدن هست'
     else if match.dictionary_name in ['surnames', 'male_names', 'female_names']
       if is_sole_match
-        'Names and surnames by themselves are easy to guess'
+        'اسم و فامیلی به راحتی قابل حدس زدن هست'
       else
-        'Common names and surnames are easy to guess'
+        'اسم های معروف به راحتی قابل حدس زدن هستند'
     else
       ''
 
     suggestions = []
     word = match.token
     if word.match(scoring.START_UPPER)
-      suggestions.push "Capitalization doesn't help very much"
+      suggestions.push "استفاده کز حروف بزرگ معمولا کمک چندانی نمی کند"
     else if word.match(scoring.ALL_UPPER) and word.toLowerCase() != word
-      suggestions.push "All-uppercase is almost as easy to guess as all-lowercase"
+      suggestions.push "استفاده از تمام حروف بزرگ به امنیت رمز ورود کمکی نمی کند"
 
     if match.reversed and match.token.length >= 4
-      suggestions.push "Reversed words aren't much harder to guess"
+      suggestions.push "کلمات رزرو شده برای حدس زدن خیلی سخت نیستند"
     if match.l33t
-      suggestions.push "Predictable substitutions like '@' instead of 'a' don't help very much"
+      suggestions.push "استفاده از جایگزین هایی مثل @ به جای a رمز عبور ایمنی نمی سازد"
 
     result =
       warning: warning
