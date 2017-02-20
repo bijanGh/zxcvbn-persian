@@ -5,7 +5,7 @@ feedback =
     warning: ''
     suggestions: [
       "از ترکیب چند کلمه غیر مرتبط استفاده کنید"
-      "اجباری به استفاده از حروف، اعداد و یا سمبل ها نیست"
+      "اجباری به استفاده از حروف،اعداد و یا نمادها نیست"
     ]
 
   get_feedback: (score, sequence) ->
@@ -22,7 +22,7 @@ feedback =
     for match in sequence[1..]
       longest_match = match if match.token.length > longest_match.token.length
     feedback = @get_match_feedback(longest_match, sequence.length == 1)
-    extra_feedback = 'یک یا چند کلمه دیگر اضافه کنید. کلمات غیر متداول بهترند.'
+    extra_feedback = 'یک یا چند کلمه دیگر اضافه کنید.'
     if feedback?
       feedback.suggestions.unshift extra_feedback
       feedback.warning = '' unless feedback.warning?
@@ -52,7 +52,7 @@ feedback =
         warning = if match.base_token.length == 1
           'تکرار هایی مثل aaa به راحتی حدس زده می شوند'
         else
-          'ترکیب هایی مثل abcabc فقط تا حدودی از abc سخت تر هستند'
+          'ترکیب هایی تکراری مثل abcabc قابل حدس زدن هستند'
         warning: warning
         suggestions: [
           'از تکرار کلمات و کاراکتر ها اجتناب کنید'
@@ -103,12 +103,12 @@ feedback =
     suggestions = []
     word = match.token
     if word.match(scoring.START_UPPER)
-      suggestions.push "استفاده کز حروف بزرگ معمولا کمک چندانی نمی کند"
+      suggestions.push "استفاده از حروف بزرگ معمولا کمک چندانی نمی کند"
     else if word.match(scoring.ALL_UPPER) and word.toLowerCase() != word
       suggestions.push "استفاده از تمام حروف بزرگ به امنیت رمز ورود کمکی نمی کند"
 
     if match.reversed and match.token.length >= 4
-      suggestions.push "کلمات رزرو شده برای حدس زدن خیلی سخت نیستند"
+      suggestions.push "کلمات خاص برای حدس زدن خیلی سخت نیستند"
     if match.l33t
       suggestions.push "استفاده از جایگزین هایی مثل @ به جای a رمز عبور ایمنی نمی سازد"
 
