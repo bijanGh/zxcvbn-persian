@@ -1,11 +1,14 @@
 {
-  "name": "zxcvbn",
+  "name": "zxcvbn-persian",
   "version": "4.4.2",
   "description": "realistic password strength estimation",
   "author": "Dan Wheeler",
+  "contributors": [
+    "Pooya Parsa <pooya@pi0.ir>"
+  ],
   "license": "MIT",
   "main": "lib/main.js",
-  "repository": "dropbox/zxcvbn",
+  "repository": "fandogh/zxcvbn",
   "scripts": {
     "test": "coffeetape test/*.coffee | faucet",
     "test-saucelabs": "zuul -- test/*.coffee",
