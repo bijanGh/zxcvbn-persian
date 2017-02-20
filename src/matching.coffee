@@ -1,6 +1,6 @@
-frequency_lists = require('./frequency_lists')
-adjacency_graphs = require('./adjacency_graphs')
-scoring = require('./scoring')
+frequency_lists = require('./frequency_lists.coffee')
+adjacency_graphs = require('./adjacency_graphs.coffee')
+scoring = require('./scoring.coffee')
 
 build_ranked_dict = (ordered_list) ->
   result = {}

@@ -1,7 +1,7 @@
-matching = require './matching'
-scoring = require './scoring'
-time_estimates = require './time_estimates'
-feedback = require './feedback'
+matching = require './matching.coffee'
+scoring = require './scoring.coffee'
+time_estimates = require './time_estimates.coffee'
+feedback = require './feedback.coffee'
 
 time = -> (new Date()).getTime()
 

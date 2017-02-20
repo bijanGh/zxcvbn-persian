@@ -11,3 +11,4 @@ lib
 tmux-*.log
 .idea
 *.yml
+*.log*

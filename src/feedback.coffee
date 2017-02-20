@@ -1,4 +1,4 @@
-scoring = require('./scoring')
+scoring = require('./scoring.coffee')
 
 feedback =
   default_feedback:
